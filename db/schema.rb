@@ -18,6 +18,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_20_040807) do
     t.date "available_date"
     t.time "available_start_time"
     t.time "available_end_time"
+    t.integer "total_slots_count", default: 0
+    t.integer "confirmed_slots_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -25,6 +27,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_20_040807) do
   create_table "user_reservations", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "reservation_id", null: false
+    t.boolean "is_confirmed", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reservation_id"], name: "index_user_reservations_on_reservation_id"
@@ -34,6 +37,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_20_040807) do
 
   create_table "users", force: :cascade do |t|
     t.string "email"
+    t.string "nickname"
+    t.string "password_digest"
     t.integer "user_level", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
