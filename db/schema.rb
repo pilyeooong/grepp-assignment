@@ -29,14 +29,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_21_044108) do
   end
 
   create_table "exam_schedules", force: :cascade do |t|
-    t.date "available_date"
-    t.time "available_start_time"
-    t.time "available_end_time"
-    t.integer "total_slots_count"
-    t.integer "confirmed_slots_count"
+    t.date "date"
+    t.time "start_time"
+    t.time "end_time"
+    t.integer "total_slots_count", default: 0
+    t.integer "confirmed_slots_count", default: 0
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["date", "start_time", "end_time"], name: "index_exam_schedules_on_date_and_start_time_and_end_time", unique: true
     t.index ["deleted_at"], name: "index_exam_schedules_on_deleted_at"
   end
 
