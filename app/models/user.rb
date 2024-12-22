@@ -3,4 +3,8 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :exam_reservations
+
+  def is_admin?
+    self.user_level >= 100
+  end
 end
