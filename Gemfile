@@ -42,6 +42,12 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
 end
 
+group :test do
+  gem 'rspec-rails', '~> 7.0'
+  gem 'factory_bot_rails'
+  gem 'database_cleaner-active_record'
+end
+
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
