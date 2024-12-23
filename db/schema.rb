@@ -22,9 +22,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_21_044108) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_exam_reservations_on_created_at"
     t.index ["deleted_at"], name: "index_exam_reservations_on_deleted_at"
     t.index ["exam_schedule_id"], name: "index_exam_reservations_on_exam_schedule_id"
-    t.index ["user_id", "exam_schedule_id"], name: "index_exam_reservations_on_user_id_and_exam_schedule_id", unique: true
+    t.index ["user_id", "exam_schedule_id"], name: "index_exam_reservations_on_user_id_and_exam_schedule_id", unique: true, where: "(deleted_at IS NULL)"
     t.index ["user_id"], name: "index_exam_reservations_on_user_id"
   end
 
@@ -37,7 +38,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_21_044108) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["date", "start_time", "end_time"], name: "index_exam_schedules_on_date_and_start_time_and_end_time", unique: true
+    t.index ["created_at"], name: "index_exam_schedules_on_created_at"
+    t.index ["date", "start_time", "end_time"], name: "index_exam_schedules_on_date_and_start_time_and_end_time", unique: true, where: "(deleted_at IS NULL)"
     t.index ["deleted_at"], name: "index_exam_schedules_on_deleted_at"
   end
 
@@ -50,7 +52,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_21_044108) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true, where: "(deleted_at IS NULL)"
   end
 
   add_foreign_key "exam_reservations", "exam_schedules"

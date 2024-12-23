@@ -10,6 +10,7 @@ class CreateExamSchedules < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
-    add_index :exam_schedules, [:date, :start_time, :end_time], unique: true
+    add_index :exam_schedules, :created_at
+    add_index :exam_schedules, [:date, :start_time, :end_time], unique: true, where: 'deleted_at IS NULL'
   end
 end

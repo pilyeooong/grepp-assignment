@@ -9,6 +9,7 @@ class CreateExamReservations < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
-    add_index :exam_reservations, [:user_id, :exam_schedule_id], unique: true
+    add_index :exam_reservations, :created_at
+    add_index :exam_reservations, [:user_id, :exam_schedule_id], unique: true, where: 'deleted_at IS NULL'
   end
 end
