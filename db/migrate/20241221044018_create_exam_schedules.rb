@@ -5,7 +5,6 @@ class CreateExamSchedules < ActiveRecord::Migration[7.1]
       t.time :start_time
       t.time :end_time
       t.integer :total_slots_count, default: 0
-      t.integer :confirmed_slots_count, default: 0
       t.datetime :deleted_at, index: true
       t.timestamps
     end

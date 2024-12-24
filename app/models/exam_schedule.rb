@@ -18,12 +18,9 @@ class ExamSchedule < ApplicationRecord
   end
 
   def get_available_slots_count
-    available_slots = self.total_slots_count - self.confirmed_slots_count || 0
-    return 0 if available_slots.to_i == 0
+    reservations_count = ExamReservation.where(exam_schedule_id: self.id).count || 0
 
-    not_confirmed_slots = ExamReservation.where(exam_schedule_id: self.id, is_confirmed: false).count || 0
-
-    available_slots - not_confirmed_slots
+    self.total_slots_count - reservations_count
   end
 
   # 접수 가능 인원이 다 차지 않았는지 검증한다.

@@ -34,7 +34,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_21_044108) do
     t.time "start_time"
     t.time "end_time"
     t.integer "total_slots_count", default: 0
-    t.integer "confirmed_slots_count", default: 0
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

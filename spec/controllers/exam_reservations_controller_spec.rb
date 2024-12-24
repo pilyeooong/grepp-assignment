@@ -132,7 +132,7 @@ RSpec.describe ExamReservationsController, type: :controller do
     it "raise exception if exam reservation is full" do
       user = create(:user)
 
-      exam_schedule = create(:exam_schedule, total_slots_count: 10, confirmed_slots_count: 10)
+      exam_schedule = create(:exam_schedule, total_slots_count: 10)
 
       post :create, params: { user_id: user.id, exam_schedule_id: exam_schedule.id }
 
@@ -146,10 +146,10 @@ RSpec.describe ExamReservationsController, type: :controller do
     it "update exam reservation" do
       user = create(:user)
 
-      exam_schedule = create(:exam_schedule, total_slots_count: 10, confirmed_slots_count: 10)
+      exam_schedule = create(:exam_schedule, total_slots_count: 10)
       exam_reservation = create(:exam_reservation, user: user, exam_schedule: exam_schedule)
 
-      new_exam_schedule = create(:exam_schedule, total_slots_count: 10, confirmed_slots_count: 9)
+      new_exam_schedule = create(:exam_schedule, total_slots_count: 10)
 
       patch :update, params: { user_id: user.id, exam_reservation_id: exam_reservation.id, exam_schedule_id: new_exam_schedule.id }
 
@@ -164,7 +164,7 @@ RSpec.describe ExamReservationsController, type: :controller do
       user = create(:user, user_level: User::ADMIN_USER_LEVEL)
       normal_user = create(:user)
 
-      exam_schedule = create(:exam_schedule, total_slots_count: 10, confirmed_slots_count: 2)
+      exam_schedule = create(:exam_schedule, total_slots_count: 10)
       exam_reservation = create(:exam_reservation, user: user, exam_schedule: exam_schedule, is_confirmed: true)
       create(:exam_reservation, user: normal_user, exam_schedule: exam_schedule, is_confirmed: true)
 
@@ -173,8 +173,10 @@ RSpec.describe ExamReservationsController, type: :controller do
       parsed_body = JSON.parse(response.body)
       data = parsed_body["data"]
 
+      confirmed_reservations_count = ExamReservation.where(exam_schedule_id: exam_schedule.id, is_confirmed: true).count
+
       expect(data).not_to be_nil
-      expect(exam_reservation.reload.exam_schedule.confirmed_slots_count).to eq(1)
+      expect(confirmed_reservations_count).to eq(1)
       expect(exam_reservation.reload.deleted_at).not_to be_nil
     end
 
@@ -182,7 +184,7 @@ RSpec.describe ExamReservationsController, type: :controller do
       user = create(:user, user_level: User::ADMIN_USER_LEVEL)
       normal_user = create(:user)
 
-      exam_schedule = create(:exam_schedule, total_slots_count: 10, confirmed_slots_count: 0)
+      exam_schedule = create(:exam_schedule, total_slots_count: 10)
       exam_reservation = create(:exam_reservation, user: normal_user, exam_schedule: exam_schedule, is_confirmed: false)
 
       post :confirm_reservation, params: { user_id: user.id, exam_reservation_id: exam_reservation.id }
@@ -190,9 +192,11 @@ RSpec.describe ExamReservationsController, type: :controller do
       parsed_body = JSON.parse(response.body)
       data = parsed_body["data"]
 
+      confirmed_reservations_count = ExamReservation.where(exam_schedule_id: exam_schedule.id, is_confirmed: true).count
+
       expect(data).not_to be_nil
       expect(exam_reservation.reload.is_confirmed).to eq(true)
-      expect(exam_reservation.reload.exam_schedule.confirmed_slots_count).to eq(1)
+      expect(confirmed_reservations_count).to eq(1)
     end
   end
 end

@@ -87,7 +87,7 @@ class ExamReservationsController < ApplicationController
     exam_reservation = ExamReservation.find_by(user_id: user_id, exam_schedule_id: exam_schedule_id)
     raise Errors::InvalidRequest.new(Errors::ALREADY_RESERVED_EXAM_SCHEDULE_MESSAGE) if exam_reservation.present?
 
-    new_exam_reservation = ExamReservation.create!(user_id: user_id, exam_schedule_id: exam_schedule_id)
+    new_exam_reservation = ExamReservation.create!(user_id: user_id, exam_schedule_id: exam_schedule_id, is_confirmed: false)
 
     render_json(data: new_exam_reservation)
   end
@@ -122,11 +122,7 @@ class ExamReservationsController < ApplicationController
     exists_exam_reservation = ExamReservation.find_by(user_id: user.id, exam_schedule_id: exam_schedule.id)
     raise Errors::NotExist.new(Errors::EXAM_RESERVATION_NOT_EXIST_MESSAGE) if exists_exam_reservation.present?
 
-    ActiveRecord::Base.transaction do
-      exam_reservation.update!(exam_schedule_id: exam_schedule.id)
-      confirmed_prev_exam_schedule_reservations_count = ExamReservation.where(exam_schedule_id: prev_exam_schedule.id, is_confirmed: true).count
-      prev_exam_schedule.update!(confirmed_slots_count: confirmed_prev_exam_schedule_reservations_count)
-    end
+    exam_reservation.update!(exam_schedule_id: exam_schedule.id)
 
     render_json(data: exam_reservation)
   end
@@ -147,13 +143,7 @@ class ExamReservationsController < ApplicationController
 
     raise Errors::InvalidRequest.new(Errors::CONFIRMED_RESERVATION_DESTROY_UNAVAILABLE_MESSAGE) if !user.is_admin? && exam_reservation.is_confirmed
 
-    ActiveRecord::Base.transaction do
-      exam_reservation.destroy!
-
-      exam_schedule = exam_reservation.exam_schedule
-      confirmed_reservations_count = ExamReservation.where(exam_schedule: exam_schedule, is_confirmed: true).count
-      exam_schedule.update!(confirmed_slots_count: confirmed_reservations_count)
-    end
+    exam_reservation.destroy!
 
     render_json(data: exam_reservation)
   end
@@ -168,17 +158,11 @@ class ExamReservationsController < ApplicationController
     raise Errors::NotExist.new(Errors::USER_NOT_EXIST_MESSAGE) if user.nil?
 
     exam_reservation = ExamReservation.find_by(id: exam_reservation_id)
-    exam_schedule = exam_reservation.exam_schedule
     raise Errors::NotExist.new(Errors::EXAM_RESERVATION_NOT_EXIST_MESSAGE) if exam_reservation.nil?
 
     raise Errors::Forbidden.new(Errors::FORBIDDEN_MESSAGE) if !user.is_admin?
 
-    ActiveRecord::Base.transaction do
-      exam_reservation.update!(is_confirmed: true)
-
-      confirmed_reservations_count = ExamReservation.where(exam_schedule: exam_schedule, is_confirmed: true).count
-      exam_schedule.update!(confirmed_slots_count: confirmed_reservations_count)
-    end
+    exam_reservation.update!(is_confirmed: true)
 
     render_json(data: exam_reservation)
   end
