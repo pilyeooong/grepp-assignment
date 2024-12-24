@@ -13,9 +13,9 @@ class ExamSchedulesController < ApplicationController
                        .offset((valid_page - 1) * valid_limit)
                        .limit(valid_limit)
 
-    exam_schedule_objs = Resource.exam_schedule_items(exam_schedules: exam_schedules)
+    exam_schedule_items = Resource.exam_schedule_items(exam_schedules: exam_schedules)
 
-    render_json(data: exam_schedule_objs)
+    render_json(data: exam_schedule_items)
   end
 
   def show

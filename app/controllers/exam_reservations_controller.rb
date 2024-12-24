@@ -105,8 +105,6 @@ class ExamReservationsController < ApplicationController
     exam_reservation = ExamReservation.find_by(id: exam_reservation_id)
     raise Errors::NotExist.new(Errors::EXAM_RESERVATION_NOT_EXIST_MESSAGE) if exam_reservation.nil?
 
-    prev_exam_schedule = exam_reservation.exam_schedule
-
     # 예약 수정 권한 체크
     raise Errors::Forbidden.new(Errors::FORBIDDEN_MESSAGE) if exam_reservation.user_id != user.id && !user.is_admin?
 
@@ -120,7 +118,7 @@ class ExamReservationsController < ApplicationController
     raise Errors::InvalidRequest.new(Errors::EXAM_RESERVATION_SLOTS_FULL_MESSAGE) unless exam_schedule.is_slots_available?
 
     exists_exam_reservation = ExamReservation.find_by(user_id: user.id, exam_schedule_id: exam_schedule.id)
-    raise Errors::NotExist.new(Errors::EXAM_RESERVATION_NOT_EXIST_MESSAGE) if exists_exam_reservation.present?
+    raise Errors::NotExist.new(Errors::ALREADY_RESERVED_EXAM_SCHEDULE_MESSAGE) if exists_exam_reservation.present?
 
     exam_reservation.update!(exam_schedule_id: exam_schedule.id)
 
@@ -162,7 +160,7 @@ class ExamReservationsController < ApplicationController
 
     raise Errors::Forbidden.new(Errors::FORBIDDEN_MESSAGE) if !user.is_admin?
 
-    exam_reservation.update!(is_confirmed: true)
+    exam_reservation.update!(is_confirmed: true, confirmed_at: Time.zone.now) if !exam_reservation.is_confirmed
 
     render_json(data: exam_reservation)
   end
