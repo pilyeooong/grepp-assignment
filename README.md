@@ -12,14 +12,14 @@
 ### 프로젝트 실행
 프로젝트 실행을 위해서는 위에 기재된 스택들에 대한 설치가 선행되어야만 합니다.
 
-1. git clone https://github.com/pilyeooong/grepp-assignment.git
-2. bundle install
+1. `git clone https://github.com/pilyeooong/grepp-assignment.git`
+2. `bundle install`
    - 프로젝트 실행에 필요한 의존성 및 라이브러리들을 설치합니다.
-3. rake db:setup
+3. `rake db:setup`
    - 실행 시 데이터베이스 생성 및 마이그레이션이 이루어지고, 테스트 데이터가 자동으로 추가됩니다.
    - 시험 일정 데이터 및 유저 데이터가 추가됩니다.
    - 어드민 유저의 경우 id가 1로 할당 되어 있습니다.
-4. rails s
+4. `rails s`
    - 서버 실행
 
 ### 테스트 코드 실행
