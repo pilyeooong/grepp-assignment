@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
     new_user = User.create!(email: email, password: password, nickname: nickname)
 
-    render_json(data: new_user)
+    render_json(data: Resource.user_item(user: new_user))
   end
   def login
     email = params[:email]

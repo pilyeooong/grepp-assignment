@@ -1,4 +1,16 @@
 module Resource
+  def self.user_item(user:)
+    {
+      id: user.id,
+      email: user.email,
+      nickname: user.nickname,
+      user_level: user.user_level,
+      deleted_at: user.deleted_at,
+      created_at: user.created_at,
+      updated_at: user.updated_at,
+    }
+  end
+
   def self.exam_schedule_item(exam_schedule:)
     {
       id: exam_schedule.id,
