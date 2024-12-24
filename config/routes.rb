@@ -11,9 +11,9 @@ Rails.application.routes.draw do
   # exam reservations
   get "exam_reservations", to: "exam_reservations#index"
   post "exam_reservations", to: "exam_reservations#create"
+  get "exam_reservations/my", to: "exam_reservations#my_reservations"
+  get "exam_reservations/:exam_reservation_id", to: "exam_reservations#show"
   patch "exam_reservations/:exam_reservation_id", to: "exam_reservations#update"
   delete "exam_reservations/:exam_reservation_id", to: "exam_reservations#destroy"
-  get "exam_reservations/:exam_reservation_id", to: "exam_reservations#show"
-  get "exam_reservations/my", to: "exam_reservations#my_reservations"
   post "exam_reservations/:exam_reservation_id/confirm", to: "exam_reservations#confirm_reservation"
 end
