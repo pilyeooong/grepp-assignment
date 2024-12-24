@@ -1,7 +1,7 @@
 User.find_or_create_by!(email: "admin@gmail.com") do |user|
   user.password = "test"
   user.nickname = "어드민"
-  user.level = User::ADMIN_USER_LEVEL
+  user.user_level = User::ADMIN_USER_LEVEL
 end
 
 5.times do |n|
