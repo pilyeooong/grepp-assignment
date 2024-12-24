@@ -1,0 +1,301 @@
+{
+	"info": {
+		"_postman_id": "62253be9-cf47-4726-b16e-e573c13d0917",
+		"name": "Grepp assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9794706"
+	},
+	"item": [
+		{
+			"name": "회원가입",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"grepp@gmail.com\",\n    \"password\": \"test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "로그인",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"grepp@gmail.com\",\n    \"password\": \"test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "시험 일정",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/exam_schedules",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"exam_schedules"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "예약 신청",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJkYXRhIjp7InVzZXJfaWQiOjcsIm5pY2tuYW1lIjoiZ1A4MXdrZlAifSwiZXhwIjoxNzQyNzkwNTc4LCJpYXQiOjE3MzUwMTQ1NzgsImlzcyI6ImdyZXBwIn0.XZJubHlSTnE-lSGrzDX53DBzZ9WitrWsrshiLRXRqPLpseLFxvGpQy9pkJSAzyzCCYC5up03-2QYg0cn0iXbww",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"exam_schedule_id\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/exam_reservations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"exam_reservations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "예약 전체 목록",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJkYXRhIjp7InVzZXJfaWQiOjEsIm5pY2tuYW1lIjoi7Ja065Oc66-8In0sImV4cCI6MTc0Mjc4ODM4MiwiaWF0IjoxNzM1MDEyMzgyLCJpc3MiOiJncmVwcCJ9.HWu55xplbE1HZipcmCCcwDNUiLSGCmKuOYdLCngKwFNMu3ulIUHD6M1KZKJRPkcgUovxczjDISypkmFIKaiClA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/exam_reservations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"exam_reservations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "내 예약 일정",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJkYXRhIjp7InVzZXJfaWQiOjcsIm5pY2tuYW1lIjoiZ1A4MXdrZlAifSwiZXhwIjoxNzQyNzkwNTc4LCJpYXQiOjE3MzUwMTQ1NzgsImlzcyI6ImdyZXBwIn0.XZJubHlSTnE-lSGrzDX53DBzZ9WitrWsrshiLRXRqPLpseLFxvGpQy9pkJSAzyzCCYC5up03-2QYg0cn0iXbww",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/exam_reservations/my",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"exam_reservations",
+						"my"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "예약 수정",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJkYXRhIjp7InVzZXJfaWQiOjcsIm5pY2tuYW1lIjoiZ1A4MXdrZlAifSwiZXhwIjoxNzQyNzkwNTc4LCJpYXQiOjE3MzUwMTQ1NzgsImlzcyI6ImdyZXBwIn0.XZJubHlSTnE-lSGrzDX53DBzZ9WitrWsrshiLRXRqPLpseLFxvGpQy9pkJSAzyzCCYC5up03-2QYg0cn0iXbww",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"exam_schedule_id\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/exam_reservations/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"exam_reservations",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "예약 삭제",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJkYXRhIjp7InVzZXJfaWQiOjEsIm5pY2tuYW1lIjoi7Ja065Oc66-8In0sImV4cCI6MTc0Mjc4ODM4MiwiaWF0IjoxNzM1MDEyMzgyLCJpc3MiOiJncmVwcCJ9.HWu55xplbE1HZipcmCCcwDNUiLSGCmKuOYdLCngKwFNMu3ulIUHD6M1KZKJRPkcgUovxczjDISypkmFIKaiClA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/exam_reservations/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"exam_reservations",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "예약 확정",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJkYXRhIjp7InVzZXJfaWQiOjEsIm5pY2tuYW1lIjoi7Ja065Oc66-8In0sImV4cCI6MTc0Mjc4ODM4MiwiaWF0IjoxNzM1MDEyMzgyLCJpc3MiOiJncmVwcCJ9.HWu55xplbE1HZipcmCCcwDNUiLSGCmKuOYdLCngKwFNMu3ulIUHD6M1KZKJRPkcgUovxczjDISypkmFIKaiClA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/exam_reservations/6/confirm",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"exam_reservations",
+						"6",
+						"confirm"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

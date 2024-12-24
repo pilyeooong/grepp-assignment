@@ -1,7 +1,4 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# 시험 일정 예약 시스템 API
 
 Things you may want to cover:
 
