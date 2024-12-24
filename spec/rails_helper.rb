@@ -69,3 +69,14 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
   config.include FactoryBot::Syntax::Methods
 end
+
+def get_token_headers(token)
+  {
+    'Authorization': "Bearer #{token}"
+  }
+end
+
+def get_user_token_headers(user)
+  token = JwtToken.generate_token(nickname: user.nickname, user_id: user.id)
+  get_token_headers(token)
+end
